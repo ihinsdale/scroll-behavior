@@ -30,8 +30,16 @@ export default function useStandardScroll(createHistory) {
   function updateScroll({ key }) {
     currentKey = key
 
-    const [ x, y ] = getScrollPosition() || [ 0, 0 ]
-    window.scrollTo(x, y)
+    var hash = window.location.hash;
+    if (hash) {
+      var element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({block: 'start', behavior: 'smooth'});
+      }
+    } else {
+      const [ x, y ] = getScrollPosition() || [ 0, 0 ]
+      window.scrollTo(x, y)
+    }
   }
 
   let unsetScrollRestoration, unlistenScroll, unlistenBefore
